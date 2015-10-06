@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by iozi on 06/10/2015.
@@ -41,7 +42,13 @@ public class XMLHRRepository implements HRRepository {
     }
 
     @Override
-    public List<Employee> findByTelephoneNumberPrefix(String prefix) {
-        return null;
+    public List<Employee> findByTelephoneNumberPrefix(String prefix) throws DataAccessException {
+        try {
+            return xmlDao.loadHR().getEmployees().stream()
+                    .filter(e -> e.getTelephoneNumber().startsWith(prefix))
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new DataAccessException(UNABLE_TO_ACCESS_DATA,e);
+        }
     }
 }

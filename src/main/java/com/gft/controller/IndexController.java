@@ -16,29 +16,23 @@
 
 package com.gft.controller;
 
-import java.util.Date;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Value;
+import com.gft.repository.DataAccessException;
+import com.gft.repository.HRRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class WelcomeController {
+public class IndexController {
 
-	@Value("${application.message:Hello World}")
-	private String message = "Hello World";
+	@Autowired
+	HRRepository hrRepository;
 
 	@RequestMapping("/")
-	public String welcome(Map<String, Object> model) {
-		model.put("time", new Date());
-		model.put("message", this.message);
-		return "welcome";
-	}
-
-	@RequestMapping("/foo")
-	public String foo(Map<String, Object> model) {
-		throw new RuntimeException("Foo");
+	public String index(Model model) throws DataAccessException {
+		model.addAttribute("employees", hrRepository.findAll());
+		return "index";
 	}
 
 }
