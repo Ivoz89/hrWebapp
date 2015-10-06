@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controller;
+package com.gft.controller;
 
 import java.util.Date;
 import java.util.Map;
