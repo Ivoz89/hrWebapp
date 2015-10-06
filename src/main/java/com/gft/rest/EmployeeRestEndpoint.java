@@ -4,10 +4,7 @@ import com.gft.model.Employee;
 import com.gft.repository.DataAccessException;
 import com.gft.repository.HRRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -27,7 +24,11 @@ public class EmployeeRestEndpoint {
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.GET)
-    public List<Employee> get() throws DataAccessException {
+    public List<Employee> get(@RequestParam(value="tel", required=false) String tel)
+            throws DataAccessException {
+        if(tel != null) {
+            return  hrRepository.findByTelephoneNumberPrefix(tel);
+        }
         return hrRepository.findAll();
     }
 }

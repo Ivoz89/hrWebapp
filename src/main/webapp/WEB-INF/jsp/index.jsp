@@ -43,10 +43,52 @@ $( document ).ready(function() {
 console.log("ready");
   $('#textinput').keyup(function() {
          var option = $("input:radio[name='radios']:checked").val()
-             var text = $('#textinput').val();
-             alert(option+ " " +text);
+             var query = $('#textinput').val();
+             var url;
+         if(option == "id") {
+            url= "/employee/"+query;
+         } else {
+            url= "/employee?tel="+query;
+         }
+         $.ajax({
+                 url: url,
+                 type: "GET",
+                 success: function (data) {
+                    var tbody = document.createElement('tbody');
+                    tbody.id = "tableBody";
+                    console.log(data);
+                    if(data.length == undefined) {
+                        tbody.appendChild(createTR(data))
+                    } else {
+                        data.forEach(function(elem) {
+                            tbody.appendChild(createTR(elem));
+                        });
+                    }
+                    $( "#tableBody" ).replaceWith(tbody);
+                 }
+             });
       });
 });
+
+function createTR(elem) {
+    var tr = document.createElement('tr');
+    var idTd = document.createElement('td');
+    idTd.appendChild(document.createTextNode(elem.id));
+    tr.appendChild(idTd);
+    var nameTd = document.createElement('td');
+    nameTd.appendChild(document.createTextNode(elem.name));
+    tr.appendChild(nameTd);
+    var surnameTd = document.createElement('td');
+    surnameTd.appendChild(document.createTextNode(elem.surname));
+    tr.appendChild(surnameTd);
+    var dobTd = document.createElement('td');
+    dobTd.appendChild(document.createTextNode(new Date(elem.dob)));
+    tr.appendChild(dobTd);
+    var telephoneNumberTd = document.createElement('td');
+    telephoneNumberTd.appendChild(document.createTextNode(elem.telephoneNumber));
+    tr.appendChild(telephoneNumberTd    );
+    return tr;
+}
 
 </script>
 <t:wrapper>
@@ -93,7 +135,7 @@ console.log("ready");
                     <th>TEL.NO.</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tableBody">
                 <c:forEach items="${employees}" var="employee">
                     <tr>
                         <td>
