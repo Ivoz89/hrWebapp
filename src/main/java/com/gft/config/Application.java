@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.gft.controller;
+package com.gft.config;
 
+import com.thoughtworks.xstream.XStream;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,7 +34,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableAutoConfiguration
 @EnableWebMvc
 @ComponentScan("com.gft")
-public class SampleWebJspApplication extends SpringBootServletInitializer {
+public class Application extends SpringBootServletInitializer {
 
 	@Bean
 	public ViewResolver getViewResolver(){
@@ -43,13 +44,18 @@ public class SampleWebJspApplication extends SpringBootServletInitializer {
 		return resolver;
 	}
 
+	@Bean
+	public XStream xStream() {
+		return new XStream();
+	}
+
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(SampleWebJspApplication.class);
+		return application.sources(Application.class);
 	}
 
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(SampleWebJspApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 }
