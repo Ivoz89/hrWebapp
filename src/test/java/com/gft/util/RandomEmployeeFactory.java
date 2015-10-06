@@ -3,7 +3,6 @@ package com.gft.util;
 import com.gft.model.Employee;
 import com.gft.model.HumanResources;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.joda.money.Money;
 
 import java.util.Date;
 import java.util.Random;

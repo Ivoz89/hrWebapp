@@ -1,7 +1,9 @@
 package com.gft.service;
 
 import com.gft.config.Application;
+import com.gft.model.HumanResources;
 import com.gft.util.RandomEmployeeFactory;
+import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.io.IOException;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.fail;
 
 /**
@@ -21,18 +25,25 @@ import static junit.framework.TestCase.fail;
 @SpringApplicationConfiguration(classes = Application.class)
 public class XMLDaoTest {
 
+    public static final int EMPLOYEE_COUNT = 10;
     @Autowired
     XMLDao xmlDao;
 
     @Test
-    public void testSavingToXML() {
+    public void testSavingAndLoadingToXML() {
         try {
-            xmlDao.saveHR(RandomEmployeeFactory.generateHR(10));
+            xmlDao.saveHR(RandomEmployeeFactory.generateHR(EMPLOYEE_COUNT));
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail();
+        }
+        try {
+            HumanResources hr = xmlDao.loadHR();
+            assertNotNull(hr);
+            assertEquals(EMPLOYEE_COUNT, hr.getEmployees().size());
         } catch (IOException e) {
             e.printStackTrace();
             fail();
         }
     }
-
-
 }

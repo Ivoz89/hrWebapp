@@ -2,6 +2,7 @@ package com.gft.repository;
 
 import com.gft.model.Employee;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface HRRepository {
 
-    List<Employee> findAll();
-    Employee findById(int id);
-    List<Employee> findByTelephoneNumberPrefix(String prefix);
+    List<Employee> findAll() throws DataAccessException;
+    Employee findById(int id) throws DataAccessException;
+    List<Employee> findByTelephoneNumberPrefix(String prefix) throws DataAccessException;
 }

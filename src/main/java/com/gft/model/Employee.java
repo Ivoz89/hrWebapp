@@ -1,8 +1,5 @@
 package com.gft.model;
 
-import org.joda.money.Money;
-
-import java.util.Currency;
 import java.util.Date;
 
 /**
@@ -10,21 +7,20 @@ import java.util.Date;
  */
 public class Employee {
 
-    private final int id;
-    private final String name;
-    private final String surname;
-    private final Date dob;
+    private int id;
+    private String name;
+    private String surname;
+    private Date dob;
     private String telephoneNumber;
 
-    public Employee(int id, String name, String surname, Date dob) {
+    private Employee() {
+    }
+
+    public Employee(int id, String name, String surname, Date dob, String telephoneNumber) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.dob = dob;
-    }
-
-    public Employee(int id, String name, String surname, Date dob, String telephoneNumber) {
-        this(id,name,surname,dob);
         this.telephoneNumber = telephoneNumber;
     }
 
