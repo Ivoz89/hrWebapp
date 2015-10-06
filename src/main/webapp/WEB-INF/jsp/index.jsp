@@ -75,7 +75,7 @@ function createTR(elem) {
     var idTd = document.createElement('td');
     idTd.appendChild(document.createTextNode(elem.id));
     tr.appendChild(idTd);
-    var nameTd = document.createElement('td');
+        var nameTd = document.createElement('td');
     nameTd.appendChild(document.createTextNode(elem.name));
     tr.appendChild(nameTd);
     var surnameTd = document.createElement('td');
@@ -86,7 +86,7 @@ function createTR(elem) {
     tr.appendChild(dobTd);
     var telephoneNumberTd = document.createElement('td');
     telephoneNumberTd.appendChild(document.createTextNode(elem.telephoneNumber));
-    tr.appendChild(telephoneNumberTd    );
+    tr.appendChild(telephoneNumberTd);
     return tr;
 }
 
@@ -95,7 +95,7 @@ function createTR(elem) {
     <div class="col-lg-8 col-lg-offset-2 filter-form">
         <form class="form-horizontal">
         <fieldset>
-        <legend>Filter</legend>
+        <h3>Filter</h5>
 
         <!-- Multiple Radios (inline) -->
         <div class="form-group">

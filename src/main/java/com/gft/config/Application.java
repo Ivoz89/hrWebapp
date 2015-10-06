@@ -43,11 +43,6 @@ public class Application extends SpringBootServletInitializer {
 		return resolver;
 	}
 
-	@Bean
-	public XStream xStream() {
-		return new XStream();
-	}
-
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(Application.class);

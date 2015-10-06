@@ -1,6 +1,7 @@
 package com.gft.service;
 
 import com.gft.config.Application;
+import com.gft.config.DaoConfiguration;
 import com.gft.model.HumanResources;
 import com.gft.util.RandomEmployeeFactory;
 import junit.framework.Assert;
@@ -21,11 +22,10 @@ import static junit.framework.TestCase.fail;
  * Created by iozi on 06/10/2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = {DaoConfiguration.class, XMLDao.class, FileAccessService.class})
 public class XMLDaoTest {
 
-    public static final int EMPLOYEE_COUNT = 10;
+    public static final int EMPLOYEE_COUNT = 10000;
     @Autowired
     XMLDao xmlDao;
 
