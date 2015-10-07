@@ -1,7 +1,6 @@
 var serverUrl = "http://localhost:60001/";
 
 $(document).ready(function () {
-
         $.ajax({
             url: serverUrl+"employee",
             type: "GET",
