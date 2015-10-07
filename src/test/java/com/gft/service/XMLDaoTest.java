@@ -25,7 +25,7 @@ import static junit.framework.TestCase.fail;
 @SpringApplicationConfiguration(classes = {DaoConfiguration.class, XMLDao.class, FileAccessService.class})
 public class XMLDaoTest {
 
-    public static final int EMPLOYEE_COUNT = 10000;
+    public static final int EMPLOYEE_COUNT = 1000;
     @Autowired
     XMLDao xmlDao;
 

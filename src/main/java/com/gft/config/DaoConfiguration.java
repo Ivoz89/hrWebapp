@@ -14,5 +14,4 @@ public class DaoConfiguration {
     public XStream xStream() {
         return new XStream();
     }
-
 }

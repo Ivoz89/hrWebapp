@@ -16,7 +16,6 @@ import java.nio.charset.Charset;
 @Service
 public class FileAccessService {
 
-
     @Value("${data.xml.path}")
     String xmlFilePath;
 
@@ -29,5 +28,4 @@ public class FileAccessService {
     public String readStringFromFile() throws IOException {
         return Files.toString(new File(xmlFilePath), Charset.forName("UTF-8"));
     }
-
 }

@@ -34,5 +34,4 @@ public class IndexController {
 		model.addAttribute("employees", hrRepository.findAll());
 		return "index";
 	}
-
 }

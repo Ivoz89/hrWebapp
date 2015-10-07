@@ -4,43 +4,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
-    function doAjaxPost() {
-        var token = $('#csrfToken').val();
-        var header = $('#csrfHeader').val();
-        var name = $('#name').val();
-        $.ajax({
-            url: "/board/" + name,
-            type: "POST",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Accept", "application/json");
-                xhr.setRequestHeader("Content-Type", "application/json");
-                xhr.setRequestHeader(header, token);
-            },
-            success: function (board) {
-                var tableRef = document.getElementById('boards').getElementsByTagName('tbody')[0];
-                var newRow = tableRef.insertRow(tableRef.rows.length);
-                var nameCell = newRow.insertCell(0);
-                var a = document.createElement('a');
-                a.href = "board/" + escapeHtml(board.name);
-                a.text = escapeHtml(board.name);
-                nameCell.appendChild(a);
-                var sizeCell = newRow.insertCell(1);
-                sizeCell.appendChild(document.createTextNode(0));
-            }
-        });
-    }
-
-    function escapeHtml(unsafe) {
-        return unsafe
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-    }
-
 $( document ).ready(function() {
-console.log("ready");
   $('#textinput').keyup(function() {
          var option = $("input:radio[name='radios']:checked").val()
              var query = $('#textinput').val();
@@ -56,7 +20,6 @@ console.log("ready");
                  success: function (data) {
                     var tbody = document.createElement('tbody');
                     tbody.id = "tableBody";
-                    console.log(data);
                     if(data.length == undefined) {
                         tbody.appendChild(createTR(data))
                     } else {
@@ -70,23 +33,18 @@ console.log("ready");
       });
 });
 
+var propertyNames = ['id','name','surname','telephoneNumber'];
+
 function createTR(elem) {
     var tr = document.createElement('tr');
-    var idTd = document.createElement('td');
-    idTd.appendChild(document.createTextNode(elem.id));
-    tr.appendChild(idTd);
-        var nameTd = document.createElement('td');
-    nameTd.appendChild(document.createTextNode(elem.name));
-    tr.appendChild(nameTd);
-    var surnameTd = document.createElement('td');
-    surnameTd.appendChild(document.createTextNode(elem.surname));
-    tr.appendChild(surnameTd);
+    propertyNames.forEach(function(propertName){
+         var td = document.createElement('td');
+         td.appendChild(document.createTextNode(elem[propertName]));
+         tr.appendChild(td);
+    });
     var dobTd = document.createElement('td');
     dobTd.appendChild(document.createTextNode(new Date(elem.dob)));
     tr.appendChild(dobTd);
-    var telephoneNumberTd = document.createElement('td');
-    telephoneNumberTd.appendChild(document.createTextNode(elem.telephoneNumber));
-    tr.appendChild(telephoneNumberTd);
     return tr;
 }
 
@@ -131,8 +89,8 @@ function createTR(elem) {
                     <th>ID</th>
                     <th>NAME</th>
                     <th>SURNAME</th>
-                    <th>DOB</th>
                     <th>TEL.NO.</th>
+                    <th>DOB</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -148,10 +106,10 @@ function createTR(elem) {
                             ${employee.surname}
                         </td>
                         <td>
-                             ${employee.dob}
+                            ${employee.telephoneNumber}
                         </td>
                         <td>
-                            ${employee.telephoneNumber}
+                             ${employee.dob}
                         </td>
                     </tr>
                 </c:forEach>
