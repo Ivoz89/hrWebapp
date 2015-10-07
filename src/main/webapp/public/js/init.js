@@ -1,27 +1,30 @@
-$(document).ready(function () {
-    $.ajax({
-        url: "http://localhost:60001/employee",
-    type: "GET",
-    success : updateView
-});
+var serverUrl = "http://localhost:60001/";
 
-$('#textinput').keyup(function () {
-    var option = $("input:radio[name='radios']:checked").val()
-    var query = $('#textinput').val();
-    var url;
-    if (option == "id") {
-        url = "http://localhost:60001/employee/" + query;
-    } else {
-        url = "http://localhost:60001/employee?tel=" + query;
+$(document).ready(function () {
+
+        $.ajax({
+            url: serverUrl+"employee",
+            type: "GET",
+            success: updateView
+        });
+
+        $('#textinput').keyup(function () {
+            var filteredProperty = $("input:radio[name='radios']:checked").val()
+            var searchValue = $('#textinput').val();
+            var restUrl;
+            if (filteredProperty == "id") {
+                restUrl = serverUrl + "employee/" + searchValue;
+            } else {
+                restUrl = serverUrl + "employee?tel=" + searchValue;
+            }
+            $.ajax({
+                url: restUrl,
+                type: "GET",
+                success: updateView
+            });
+        });
     }
-    $.ajax({
-        url: url,
-        type: "GET",
-        success: updateView
-    });
-});
-})
-;
+);
 
 function updateView(data) {
     var tbody = document.createElement('tbody');
